@@ -1,1 +1,1 @@
-# Phidippides
+# Phidippides simulator
