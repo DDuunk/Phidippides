@@ -10,7 +10,6 @@ A PyTorch implementation of [Fast-SCNN: Fast Semantic Segmentation Network](http
 - <a href='#evaluation'>Evaluate</a>
 - <a href='#demo'>Demo</a>
 - <a href='#results'>Results</a>
-- <a href='#todo'>TO DO</a>
 - <a href='#references'>Reference</a>
 
 ## Installation
@@ -55,13 +54,6 @@ Note: The result based on crop_size=768, which is different with paper.
 
 <img src="./png/frankfurt_000001_058914_leftImg8bit.png" width="280" /><img src="./png/frankfurt_000001_058914_gtFine_color.png" width="280" /><img src="./png/frankfurt_000001_058914_seg.png" width="280" />
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(a) test image &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(b) ground truth &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(c) predicted result
-
-## TODO
-- [ ] add distributed training
-- [ ] Support for the VOC, ADE20K dataset
-- [ ] Support TensorBoard
-- [x] save the best model
-- [x] add Ohem Loss
  
 ## Authors
 * [**Tramac**](https://github.com/Tramac)
