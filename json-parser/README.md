@@ -10,8 +10,8 @@ A parser for parsing raw LIDAR data to json format.
 - Clone this repository.
 - Insert `input.txt` into `/input`, output will be generated in `/output`.
 
-## Demo
-Running a demo:
+## Usage
 ```Shell
 python parser.py 
+python parser-3-dimensional.py
 ```
