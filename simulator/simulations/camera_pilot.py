@@ -23,13 +23,14 @@
 #
 # Removing this header ends your licence.
 #
-
+import sys
+sys.path.append('../../')
 import time as tm
 import traceback as tb
 import math
 import simpylc as sp
 from utils import pid as pid
-import road_coordinator as rd
+from steering import road_coordinator as rd
 import cv2 
 
 class CameraPilot:
