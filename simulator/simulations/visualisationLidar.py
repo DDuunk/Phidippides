@@ -33,6 +33,8 @@
     x
 
 '''
+from __future__ import print_function, unicode_literals
+from PyInquirer import prompt, print_json
 import json as json
 import random as rd
 
@@ -166,8 +168,16 @@ class Visualisation (sp.Scene):
         #                 color = (1, 0.3, 0),
         #                 group = 1
         #     ))
-
-        track = open ('./tracks/asphalt_hard.track')
+        questions = [
+            {
+                'type': 'list',
+                'name': 'track',
+                'message': 'Which track do you want to drive on?',
+                'choices': [ 'asphalt', 'asphalt_hard']
+            }
+        ]
+        answers = prompt(questions)
+        track = open ('./tracks/' + answers['track'] + '.track')
         for rowIndex, row in enumerate (track):
             for columnIndex, column in enumerate (row):
                 if column == '*':
@@ -197,7 +207,7 @@ class Visualisation (sp.Scene):
      
         # self.startX = data[0].get("x") / 4 - 8
         # self.startY = data[0].get("y") / 2 - 8
-        self.startX = -7
+        self.startX = 7
         self.startY = 5
         self.init = True
         self.lidar = Lidar (180, self.roadCones, self.roadBorders)

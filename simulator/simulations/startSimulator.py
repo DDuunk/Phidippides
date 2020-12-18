@@ -25,7 +25,8 @@
 #
 # Removing this header ends your licence.
 #
-
+from __future__ import print_function, unicode_literals
+from PyInquirer import prompt, print_json
 import os
 import sys as ss
 
@@ -41,14 +42,36 @@ from utils import physics as ps
 import visualisation as vs
 import visualisationLidar as vsl
 from utils import timing as tm
+questions = [
+    {
+        'type': 'list',
+        'name': 'sensor',
+        'message': 'Which sensor do you want to simulate?',
+        'choices': [ 'Camera','Li-Dar', 'Keyboard']
+    }
+]
+answers = prompt(questions)
+if (answers['sensor'] == 'Camera'):
+    sp.World (
+        cp.CameraPilot,
+        ps.Physics,
+        vs.Visualisation,
+        tm.Timing
+    )  
 
-sp.World (
-   # ct.Control,
-    #kp.KeyboardPilot,
-    cp.CameraPilot,
-    # ls.LidarPilotSp,
-    ps.Physics,
-    # vs.Visualisation,
-    vs.Visualisation,
-    #  tm.Timing
-)
+elif(answers['sensor'] == 'Li-Dar'):
+    sp.World (
+        lp.LidarPilot,
+        ps.Physics,
+        vsl.Visualisation,
+        tm.Timing
+    )  
+elif(answers['sensor'] == 'Keyboard'):
+    print('controll')
+    sp.World (
+        # ct.Control,
+        kp.KeyboardPilot,
+        ps.Physics,
+        vs.Visualisation,
+        tm.Timing,
+    )
