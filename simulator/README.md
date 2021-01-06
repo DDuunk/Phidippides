@@ -9,10 +9,9 @@ A simulator to simulate an autonomous car driving by camera or lidar input.
     pip install PyInquirer
 ```
 - Clone this repository.
-- Insert `input.txt` into `/input`, output will be generated in `/output`.
 
 ## Usage
 ```Shell
-python parser.py 
-python parser-3-dimensional.py
+cd simulator\simulations
+python startSimulator.py
 ```
