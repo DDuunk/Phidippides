@@ -33,7 +33,8 @@
     x
 
 '''
-
+from __future__ import print_function, unicode_literals
+from PyInquirer import prompt, print_json
 import random as rd
 
 import simpylc as sp
@@ -122,7 +123,7 @@ class Floor (sp.Beam):
 class Visualisation (sp.Scene):
     def __init__ (self):
         super () .__init__ ()
-        
+        self.init = False
         self.camera = sp.Camera ()
         
         self.floor = Floor (scene = self)
@@ -141,7 +142,16 @@ class Visualisation (sp.Scene):
         self.windowRear = Window (size = (0.05, 0.14, 0.18), center = (-0.18, 0, -0.025),angle = 72) 
 
         self.roadCones = []
-        track = open ('./tracks/no.track')
+        questions = [
+            {
+                'type': 'list',
+                'name': 'track',
+                'message': 'Which track do you want to drive on?',
+                'choices': [ 'default','no', 'hard']
+            }
+        ]
+        answers = prompt(questions)
+        track = open ('./tracks/' + answers['track'] + '.track')
         
         for rowIndex, row in enumerate (track):
             for columnIndex, column in enumerate (row):
