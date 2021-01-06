@@ -207,7 +207,7 @@ class Visualisation (sp.Scene):
      
         # self.startX = data[0].get("x") / 4 - 8
         # self.startY = data[0].get("y") / 2 - 8
-        self.startX = 7
+        self.startX = 10
         self.startY = 5
         self.init = True
         self.lidar = Lidar (180, self.roadCones, self.roadBorders)
