@@ -27,7 +27,11 @@ The camera pilot simulates using the steering module by using a mp4 video feed.
 
 ## Lidar pilot
 The lidar pilot is used to simulate a lidar which detects obstacles.
-- Within the tracks are obstacles placed:
-    - $ water
-    - * road surface
-    - '#' cones
+Within the tracks are several obstacles placed:
+    - '$' water
+    - '*' road surface
+    - '^' cones
+    - '#' car
+ You can use the gui to change parameters. 
+
+
