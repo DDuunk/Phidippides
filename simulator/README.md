@@ -22,16 +22,22 @@ The vehicle uses a PID to steer smoothly accros the track.
 
 ## Camera pilot
 The camera pilot simulates using the steering module by using a mp4 video feed. 
+The steeringAngle is calculated by using the RoadCoordinator, 
+the coordinates given are used with use the Pythagorean theorem to calculate the angle.
+
 - The input consists of a video feed with already segmented road surface.
+- The output is a target steering angle and target velocity.
 - It is recommended to choose for "No.track"
+
 
 ## Lidar pilot
 The lidar pilot is used to simulate a lidar which detects obstacles.
 Within the tracks are several obstacles placed:
+
     - '$' water
     - '*' road surface
     - '^' cones
     - '#' car
- You can use the gui to change parameters. 
+
 
 
