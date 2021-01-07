@@ -34,4 +34,4 @@ These bottom and top coordinates are tuples of X and Y:
     - top -> (x:int,y:int)
 
 This will be visualized as follows:
-![Alt text](/doc.png "Roadcoordinator visualisation")
+![Alt text](./doc.png "Roadcoordinator visualisation")
