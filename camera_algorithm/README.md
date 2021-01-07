@@ -34,5 +34,6 @@ These bottom and top coordinates are tuples of X and Y:
     - top -> (x:int,y:int)
 
 With these coordinates it is possible to calculate the desired steering angle. 
+
 These coordinates will be visualized as follows:
 ![Alt text](./doc.png "Roadcoordinator visualisation")
