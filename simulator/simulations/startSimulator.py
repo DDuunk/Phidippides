@@ -36,7 +36,6 @@ import simpylc as sp
 from utils import control as ct
 import keyboard_pilot as kp
 import lidar_pilot as lp
-import lidar_pilot_sp as ls
 import camera_pilot as cp
 from utils import physics as ps
 import visualisation as vs

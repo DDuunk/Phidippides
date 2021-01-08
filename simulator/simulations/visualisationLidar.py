@@ -138,7 +138,7 @@ class Floor (sp.Beam):
 class Visualisation (sp.Scene):
     def __init__ (self):
         super () .__init__ ()
-        
+        self.init = False
         self.camera = sp.Camera ()
         
         self.floor = Floor (scene = self)
@@ -204,12 +204,12 @@ class Visualisation (sp.Scene):
         #                 color = (1, 0.3, 0),
         #                 group = 1
         #             ))
-     
+            
         # self.startX = data[0].get("x") / 4 - 8
         # self.startY = data[0].get("y") / 2 - 8
-        self.startX = 7
+        self.startX = -7
         self.startY = 5
-        self.init = True
+        # self.init = False
         self.lidar = Lidar (180, self.roadCones, self.roadBorders)
         
     def display (self):
