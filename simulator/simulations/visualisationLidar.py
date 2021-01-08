@@ -194,9 +194,6 @@ class Visualisation (sp.Scene):
                         color = (0,0,1),
                         group = 1
                     ))
-                elif column == '#':
-                    self.startX = columnIndex / 2 - 2
-                    self.startY = rowIndex / 2 - 2
         # obstacles = open ('obstacles.track')
         # for rowIndex, row in enumerate (obstacles):
         #     for columnIndex, column in enumerate (row):
@@ -210,8 +207,8 @@ class Visualisation (sp.Scene):
             
         # self.startX = data[0].get("x") / 4 - 8
         # self.startY = data[0].get("y") / 2 - 8
-        # self.startX = 2
-        # self.startY = -2
+        self.startX = -7
+        self.startY = 5
         # self.init = False
         self.lidar = Lidar (180, self.roadCones, self.roadBorders)
         

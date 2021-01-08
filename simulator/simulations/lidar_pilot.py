@@ -39,6 +39,9 @@ class LidarPilot:
         sp.world.physics.intergral.set(20)
         sp.world.physics.differential.set(15)
         self.steeringPID = pid.Pid(sp.world.physics.proportional,sp.world.physics.intergral, sp.world.physics.differential)
+        sp.world.physics.velocity.set(0)
+        sp.world.physics.positionX.set(-6)
+        sp.world.physics.positionY.set(6)
         while True:
             self.input ()
             self.sweep ()
