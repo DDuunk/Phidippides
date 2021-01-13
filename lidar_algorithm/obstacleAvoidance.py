@@ -33,7 +33,7 @@ class obstacleAvoidance:
         self.steeringPID = pid
         self.lidarHalfApertureAngle = lidarHalfApertureAngle
         
-    def calculateSteeringAngle (self, driveEnabled, lidarDistances, obstacleDistances, steeringAngle):   # Control algorithm to be tested
+    def calculateSteeringAngle (self, driveEnabled, lidarDistances, obstacleDistances, steeringAngle):   
         self.driveEnabled = driveEnabled
         self.lidarDistances = lidarDistances
         self.obstacleDistances = obstacleDistances
