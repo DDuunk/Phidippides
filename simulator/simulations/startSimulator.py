@@ -41,6 +41,7 @@ from utils import physics as ps
 import visualisation as vs
 import visualisationLidar as vsl
 from utils import timing as tm
+
 questions = [
     {
         'type': 'list',
@@ -49,7 +50,9 @@ questions = [
         'choices': [ 'Camera','Li-Dar', 'Keyboard']
     }
 ]
+
 answers = prompt(questions)
+
 if (answers['sensor'] == 'Camera'):
     sp.World (
         cp.CameraPilot,
@@ -66,7 +69,6 @@ elif(answers['sensor'] == 'Li-Dar'):
         tm.Timing
     )  
 elif(answers['sensor'] == 'Keyboard'):
-    print('controll')
     sp.World (
         # ct.Control,
         kp.KeyboardPilot,

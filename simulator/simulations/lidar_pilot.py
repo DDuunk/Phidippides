@@ -36,6 +36,7 @@ class LidarPilot:
     def __init__ (self):
         print ('Use up arrow to start, down arrow to stop')
         
+        #set default values
         self.driveEnabled = False
         sp.world.physics.proportional.set(0.40)
         sp.world.physics.intergral.set(20)
@@ -45,6 +46,8 @@ class LidarPilot:
         sp.world.physics.positionX.set(-6)
         sp.world.physics.positionY.set(6)
         avoider = oa.obstacleAvoidance(sp.world.visualisation.lidar.halfApertureAngle, self.steeringPID)
+
+        # start loop and use avoider to steer
         while True:
             key = sp.getKey ()
             if key == 'KEY_UP':

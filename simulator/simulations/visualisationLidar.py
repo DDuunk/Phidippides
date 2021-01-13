@@ -140,7 +140,8 @@ class Visualisation (sp.Scene):
         super () .__init__ ()
         self.init = False
         self.camera = sp.Camera ()
-        
+        self.startX = -7
+        self.startY = 5
         self.floor = Floor (scene = self)
         
         self.fuselage = BodyPart (size = (0.70, 0.16, 0.08), center = (0, 0, 0.07), pivot = (0, 0, 1), group = 0)
@@ -159,21 +160,13 @@ class Visualisation (sp.Scene):
         self.roadCones = []
         self.roadBorders = []
         self.asphalt = []
-        # with open('../../../Lidar_Parser/test.json') as f:
-        #     data = json.load(f)
-        # for point in data:    
-        #     self.roadCones.append (sp.Beam (
-        #                 size = (0.01, 0.01, 0.01),
-        #                 center = (point.get("x"), point.get("y"), (point.get("z") + 0.9)/20 ),
-        #                 color = (1, 0.3, 0),
-        #                 group = 1
-        #     ))
+
         questions = [
             {
                 'type': 'list',
                 'name': 'track',
                 'message': 'Which track do you want to drive on?',
-                'choices': [ 'asphalt', 'asphalt_hard']
+                'choices': [ 'asphalt', 'asphalt_hard', 'asphalt_obstacle']
             }
         ]
         answers = prompt(questions)
@@ -194,22 +187,14 @@ class Visualisation (sp.Scene):
                         color = (0,0,1),
                         group = 1
                     ))
-        # obstacles = open ('obstacles.track')
-        # for rowIndex, row in enumerate (obstacles):
-        #     for columnIndex, column in enumerate (row):
-        #         if column == '^':
-        #           self.roadCones.append (sp.Cone (
-        #                 size = (0.1, 0.1, 0.15),
-        #                 center = (columnIndex / 4 - 8, rowIndex / 2 - 8, 0.15),
-        #                 color = (1, 0.3, 0),
-        #                 group = 1
-        #             ))
-            
-        # self.startX = data[0].get("x") / 4 - 8
-        # self.startY = data[0].get("y") / 2 - 8
-        self.startX = -7
-        self.startY = 5
-        # self.init = False
+                elif column == '^':
+                  self.roadCones.append (sp.Cone (
+                        size = (0.1, 0.1, 0.15),
+                        center = (columnIndex / 4 - 8, rowIndex / 2 - 8, 0.15),
+                        color = (1, 0.3, 0),
+                        group = 1
+                    ))
+
         self.lidar = Lidar (180, self.roadCones, self.roadBorders)
         
     def display (self):
@@ -223,12 +208,6 @@ class Visualisation (sp.Scene):
             position = sp.tEva ((sp.world.physics.positionX + 2, sp.world.physics.positionY, 2)),
             focus = sp.tEva ((sp.world.physics.positionX + 0.001, sp.world.physics.positionY, 0))
         )
-        '''
-        self.camera (
-            position = sp.tEva ((0.0000001, 0, 12)),
-            focus = sp.tEva ((0, 0, 0))
-        )
-        '''
         
         self.floor (parts = lambda:
             self.fuselage (position = (sp.world.physics.positionX, sp.world.physics.positionY, 0), rotation = sp.world.physics.attitudeAngle, parts = lambda:
