@@ -39,7 +39,6 @@ import lidar_pilot as lp
 import camera_pilot as cp
 from utils import physics as ps
 import visualisation as vs
-import visualisationLidar as vsl
 from utils import timing as tm
 
 questions = [
@@ -65,12 +64,12 @@ elif(answers['sensor'] == 'Li-Dar'):
     sp.World (
         lp.LidarPilot,
         ps.Physics,
-        vsl.Visualisation,
+        vs.Visualisation,
         tm.Timing
     )  
 elif(answers['sensor'] == 'Keyboard'):
     sp.World (
-        # ct.Control,
+        ct.Control,
         kp.KeyboardPilot,
         ps.Physics,
         vs.Visualisation,

@@ -63,12 +63,16 @@ class Physics (sp.Module):
         self.radialAcceleration = sp.Register ()
         self.slipping = sp.Marker ()
         self.radialVelocity = sp.Register ()
-        
+        self.start = sp.Register(True)
+
     def sweep (self):
         self.page ('traction')  
         self.group ('wheels', True)
-        
-        self.velocity.set (self.velocity + self.acceleration * sp.world.period, self.velocity < self.targetVelocity, self.velocity - self.acceleration * sp.world.period)
+        if(self.start):
+            self.velocity.set (self.velocity , self.velocity < self.targetVelocity, self.velocity)
+            self.start.set(False)
+        else:
+            self.velocity.set (self.velocity + self.acceleration * sp.world.period, self.velocity < self.targetVelocity, self.velocity - self.acceleration * sp.world.period)
         self.midWheelAngularVelocity.set (self.velocity / pm.displacementPerWheelAngle)
         self.midWheelAngle.set (self.midWheelAngle + self.midWheelAngularVelocity * sp.world.period)
         self.tangentialVelocity.set (self.midWheelAngularVelocity * pm.displacementPerWheelAngle) 
@@ -84,7 +88,7 @@ class Physics (sp.Module):
         self.radialAcceleration.set (sp.max (abs (self.tangentialVelocity * self.tangentialVelocity * self.inverseMidCurveRadius) - 0.5, 0))
         self.slipping.mark (sp.abs (self.radialAcceleration) > 0.55)
         self.radialVelocity.set (self.radialVelocity + self.radialAcceleration * sp.world.period, self.slipping, 0)
-        
+
         self.velocityX.set (self.tangentialVelocity * sp.cos (self.courseAngle) + self.radialVelocity * sp.sin (self.courseAngle))
         self.velocityY.set (self.tangentialVelocity * sp.sin (self.courseAngle) + self.radialVelocity * sp.cos (self.courseAngle))
         
