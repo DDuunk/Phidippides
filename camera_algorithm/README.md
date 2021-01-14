@@ -41,4 +41,5 @@ These coordinates will be visualized as follows:
 You can use test.py to visualize the algorithm on a segmented video.
 ```
 python test.py
+use q key to exit
 ```
