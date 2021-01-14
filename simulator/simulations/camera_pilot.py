@@ -45,12 +45,9 @@ class CameraPilot:
         self.driveEnabled = True
         self.targetVelocity = 0.7
         self.steeringAngle = 0
-        sp.world.physics.velocity.set(0)
-        sp.world.physics.positionX.set(-6)
-        sp.world.physics.positionY.set(2)
         coordinator = rd.RoadCoordinator(200,0,[100,150,0],[140,255,255])
         cap = cv2.VideoCapture('test.mp4')
-        
+
         while(cap.isOpened()):
             ret, frame = cap.read()
             if ret == True:

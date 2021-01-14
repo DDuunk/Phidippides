@@ -31,9 +31,7 @@ import simpylc as sp
 class KeyboardPilot:
     def __init__ (self):
         print ('Use arrow keys to control speed and direction')
-        sp.world.physics.velocity.set(0)
-        sp.world.physics.positionX.set(-6)
-        sp.world.physics.positionY.set(6)
+
         while True:
             self.input ()
             self.sweep ()

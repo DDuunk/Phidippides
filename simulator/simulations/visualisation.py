@@ -138,10 +138,8 @@ class Floor (sp.Beam):
 class Visualisation (sp.Scene):
     def __init__ (self):
         super () .__init__ ()
-        self.init = False
         self.camera = sp.Camera ()
-        self.startX = -7
-        self.startY = 5
+
         self.floor = Floor (scene = self)
         
         self.fuselage = BodyPart (size = (0.70, 0.16, 0.08), center = (0, 0, 0.07), pivot = (0, 0, 1), group = 0)
@@ -170,7 +168,9 @@ class Visualisation (sp.Scene):
             }
         ]
         answers = prompt(questions)
+
         track = open ('./tracks/' + answers['track'] + '.track')
+
         for rowIndex, row in enumerate (track):
             for columnIndex, column in enumerate (row):
                 if column == '*':
@@ -194,7 +194,12 @@ class Visualisation (sp.Scene):
                         color = (1, 0.3, 0),
                         group = 1
                     ))
-
+                elif column == "@":
+                    self.startX = columnIndex / 4 - 8
+                    self.startY = rowIndex / 2 - 8
+                    self.init = True
+        
+        track.close()
         self.lidar = Lidar (180, self.roadCones, self.roadBorders)
         
     def display (self):
