@@ -57,3 +57,28 @@ Use the obstacleAvoidance class with the following:
  With the current steering angle and the desired steering angle we use the PID to calculate the next steering angle which is our output.
  
 # distancepoints
+The so called 'distancepoints' are points detected by an Li-Dar.
+These points consist of a distance(between the Li-Dar and the object) and the angle.
+
+If your Li-Dar does not output these variables, you can still use this algorithm. 
+Instead of using the current for loop and calculate the coordinates you can also calculate the four closest coordinates and use these as input.
+Change line 55 -> 70 with code that does the following: 
+
+```     
+       for lidarCoordinate in range (0, len(lidarCoordinates)):
+            if(lidarCoordinate.x < 0):
+               distance = math.sqrt(mat.pow(lidarCoordinate.x, 2) + mat.pow(lidarCoordinate.y, 2))
+               if(distance < self.rightRoadBorder):
+                  self.rightRoadBorder = distance
+                  self.coordinatesR = lidarCoordinate
+               elif (distance < self.nextRightRoadBorder):
+                  self.nextRightRoadBorder = distance
+                  self.coordinatesNR = lidarCoordinate
+
+        #check if obstacle within current direction
+        #and calculate coordinates for middle point with or without obstacle
+        self.coordinatesNR = self.calculateCoordinates(self.nextRightRoadBorderAngle, self.nextRightRoadBorder)
+        self.coordinatesR = self.calculateCoordinates(self.rightRoadBorderAngle, self.rightRoadBorder)
+        self.coordinatesNL = self.calculateCoordinates(self.nextLeftRoadBorderAngle, self.nextLeftRoadBorder)
+        self.coordinatesL = self.calculateCoordinates(self.leftRoadBorderAngle, self.leftRoadBorder)
+```
