@@ -37,7 +37,7 @@ Within the tracks are several obstacles placed:
     - '$' water
     - '*' road surface
     - '^' cones
-    - '#' car
+    - '@' car
 
 
 
