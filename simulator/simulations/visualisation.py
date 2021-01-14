@@ -35,6 +35,7 @@
 '''
 from __future__ import print_function, unicode_literals
 from PyInquirer import prompt, print_json
+import json as json
 import random as rd
 
 import simpylc as sp
@@ -48,14 +49,17 @@ nrOfObstacles = 64
 class Lidar:
     # 0, ...,  halfApertureAngle - 1, -halfApertureAngle, ..., -1
     
-    def __init__ (self, apertureAngle, obstacles):
+    def __init__ (self, apertureAngle, obstacles, roadBorders):
         self.apertureAngle = apertureAngle
         self.halfApertureAngle = self.apertureAngle // 2
         self.obstacles = obstacles
+        self.roadBorders = roadBorders
         self.distances = [sp.finity for angle in range (self.apertureAngle)]
-        
+        self.roadDistances = [sp.finity for angle in range (self.apertureAngle)]
+
     def scan (self, mountPosition, mountAngle):
         self.distances = [sp.finity for angle in range (self.apertureAngle)]
+        self.roadDistances = [sp.finity for angle in range (self.apertureAngle)]
         all = [(sp.finity, angle) for angle in range (-180, 180)]
         
         for obstacle in self.obstacles:
@@ -69,8 +73,19 @@ class Lidar:
                 
             if -self.halfApertureAngle <= relativeAngle < self.halfApertureAngle - 1:
                 self.distances [relativeAngle] = min (distance, self.distances [relativeAngle])    # In case of coincidence, favor nearby obstacle
+        
+        for roadBorder in self.roadBorders:
+            relativePosition = sp.tSub (roadBorder.center, mountPosition) 
+            distance = sp.tNor (relativePosition)
+            absoluteAngle = sp.atan2 (relativePosition [1], relativePosition [0])
+            relativeAngle = (round (absoluteAngle - mountAngle) + 180) % 360 - 180
 
-        #print (all)
+            if distance < all [relativeAngle][0]:
+                all [relativeAngle] = (distance, relativeAngle)   # In case of coincidence, favor nearby obstacle  
+                
+            if -self.halfApertureAngle <= relativeAngle < self.halfApertureAngle - 1:
+                self.roadDistances [relativeAngle] = min (distance, self.roadDistances [relativeAngle])    # In case 
+        # print (all)
 
 class Line (sp.Cylinder):
     def __init__ (self, **arguments):
@@ -108,7 +123,7 @@ class Floor (sp.Beam):
         def __init__ (self, **arguments):
             super () .__init__ (size = (0.01, Floor.side, 0.001), **arguments)
             
-    def __init__ (self, **arguments):
+    def __init__ (self, **arguments):      
         super () .__init__ (size = (self.side, self.side, 0.0005), color = normalFloorColor)
         self.xStripes = [self.Stripe (center = (0, nr * self.spacing, 0.0001), angle = 90, color = (1, 1, 1)) for nr in range (-self.halfSteps, self.halfSteps)]
         self.yStripes = [self.Stripe (center = (nr * self.spacing, 0, 0), color = (0, 0, 0)) for nr in range (-self.halfSteps, self.halfSteps)]
@@ -125,7 +140,8 @@ class Visualisation (sp.Scene):
         super () .__init__ ()
         self.init = False
         self.camera = sp.Camera ()
-        
+        self.startX = -7
+        self.startY = 5
         self.floor = Floor (scene = self)
         
         self.fuselage = BodyPart (size = (0.70, 0.16, 0.08), center = (0, 0, 0.07), pivot = (0, 0, 1), group = 0)
@@ -142,48 +158,44 @@ class Visualisation (sp.Scene):
         self.windowRear = Window (size = (0.05, 0.14, 0.18), center = (-0.18, 0, -0.025),angle = 72) 
 
         self.roadCones = []
+        self.roadBorders = []
+        self.asphalt = []
+
         questions = [
             {
                 'type': 'list',
                 'name': 'track',
                 'message': 'Which track do you want to drive on?',
-                'choices': [ 'default','no', 'hard']
+                'choices': [ 'default','no', 'hard', 'asphalt', 'asphalt_hard', 'asphalt_obstacle']
             }
         ]
         answers = prompt(questions)
         track = open ('./tracks/' + answers['track'] + '.track')
-        
         for rowIndex, row in enumerate (track):
             for columnIndex, column in enumerate (row):
                 if column == '*':
-                    self.roadCones.append (sp.Beam (
-                        size = (0.1, 0.1, 0.15),
-                        center = (columnIndex / 4 - 8, rowIndex / 2 - 8, 0.15),
-                        color = (1, 0.3, 0),
+                    self.asphalt.append (sp.Beam (
+                        size = (0.5,0.5, 0.01),
+                        center = (columnIndex / 4 - 8, rowIndex / 2 - 8, 0.001),
+                        color = (0.02,0.02,0.005),
+                        group = 1
+                    ))
+                elif column == '$':
+                    self.roadBorders.append (sp.Beam (
+                        size = (0.5,0.5, 0.01),
+                        center = (columnIndex / 4 - 8, rowIndex / 2 - 8, 0.005),
+                        color = (0,0,1),
                         group = 1
                     ))
                 elif column == '^':
-                    self.roadCones.append (sp.Cone (
+                  self.roadCones.append (sp.Cone (
                         size = (0.1, 0.1, 0.15),
                         center = (columnIndex / 4 - 8, rowIndex / 2 - 8, 0.15),
                         color = (1, 0.3, 0),
                         group = 1
                     ))
-                elif column == '#':
-                    self.roadCones.append (sp.Cone (
-                        size = (0.1, 0.1, 0.15),
-                        center = (columnIndex / 4 - 8, rowIndex / 2 - 8, 0.15),
-                        color = (1, 0.3, 0),
-                        group = 1
-                    ))
-                elif column == "@":
-                    self.startX = columnIndex / 4 - 8
-                    self.startY = rowIndex / 2 - 8
-                    self.init = True
-                    
-        track.close ()
-        
-        self.lidar = Lidar (180, self.roadCones)
+
+        self.lidar = Lidar (180, self.roadCones, self.roadBorders)
         
     def display (self):
         if self.init:
@@ -196,12 +208,6 @@ class Visualisation (sp.Scene):
             position = sp.tEva ((sp.world.physics.positionX + 2, sp.world.physics.positionY, 2)),
             focus = sp.tEva ((sp.world.physics.positionX + 0.001, sp.world.physics.positionY, 0))
         )
-        '''
-        self.camera (
-            position = sp.tEva ((0.0000001, 0, 12)),
-            focus = sp.tEva ((0, 0, 0))
-        )
-        '''
         
         self.floor (parts = lambda:
             self.fuselage (position = (sp.world.physics.positionX, sp.world.physics.positionY, 0), rotation = sp.world.physics.attitudeAngle, parts = lambda:
@@ -234,6 +240,10 @@ class Visualisation (sp.Scene):
             ) +
             
             sum (roadCone () for roadCone in self.roadCones)
+            +
+            sum (roadborder () for roadborder in self.roadBorders)
+            +
+            sum (asphalt () for asphalt in self.asphalt)
         )
                 
         try:
