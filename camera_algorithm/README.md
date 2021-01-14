@@ -7,7 +7,7 @@ Python 3.x.
 pip install opencv-python
 pip install numpy
 ```
-## Usage
+## Usage in Code
 The roadCoordinator class accepts 4 parameters.
 1. Init the roadCoordinator
 2. Use the first two parameters to crop the image until the road touches the top and bottom of the frame.
@@ -33,7 +33,12 @@ These bottom and top coordinates are tuples of X and Y:
     - bottom -> (x:int,y:int)
     - top -> (x:int,y:int)
 
-With these coordinates it is possible to calculate the desired steering angle. 
 
 These coordinates will be visualized as follows:
 ![Alt text](./doc.png "Roadcoordinator visualisation")
+
+## extra
+You can use test.py to visualize the algorithm on a segmented video.
+```
+python test.py
+```
