@@ -9,7 +9,7 @@ Use the obstacleAvoidance class with the following:
  After the initialisation you can use the calculateSteeringAngle method.
  This method expects the following:
  - driveEnabled: boolean -> if the car is drving.
- - lidarDistances: A list of distancepoints of the road borders.
+ - lidarDistances: A list of [distancepoints](#distancepoints) of the road borders.
  - obstacleDistances: An extra list of distancepoints from certain objects.
  - steeringAngle: The current steering angle of the car.
  
@@ -56,3 +56,4 @@ Use the obstacleAvoidance class with the following:
  With the middle coordinates we again use the Pythagoras Theorem the calculate the desired steering angle
  With the current steering angle and the desired steering angle we use the PID to calculate the next steering angle which is our output.
  
+#distancepoints
