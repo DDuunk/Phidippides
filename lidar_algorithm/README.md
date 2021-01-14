@@ -56,4 +56,4 @@ Use the obstacleAvoidance class with the following:
  With the middle coordinates we again use the Pythagoras Theorem the calculate the desired steering angle
  With the current steering angle and the desired steering angle we use the PID to calculate the next steering angle which is our output.
  
-#distancepoints
+# distancepoints
