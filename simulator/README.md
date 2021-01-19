@@ -14,6 +14,8 @@ A simulator to simulate an autonomous car driving by camera or lidar input.
 ```Shell
 cd simulator\simulations
 python startSimulator.py
+choose what you want to simulate
+choose the track you want to drive on
 ```
 ## PID
 The vehicle uses a PID to steer smoothly accros the track.
@@ -32,12 +34,18 @@ the coordinates given are used with use the Pythagorean theorem to calculate the
 
 ## Lidar pilot
 The lidar pilot is used to simulate a lidar which detects obstacles.
-Within the tracks are several obstacles placed:
+It works by using the lidar algorithm on a track with objects.
+
+## tracks
+You can add your own tracks or change the tracks inside the tracks folder.
+Within the tracks are several obstacles with a given character:
 
     - '$' water
     - '*' road surface
     - '^' cones
     - '@' car
-
+    
+Tip: - If you want to change the objects visualisation or the dimensions of the tracks, you can do so in the visualisation.py
+     - You can also add your own simulation in the startSimulator.py by creating a new python module and adding the module as an answer to the answersList
 
 
