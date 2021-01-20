@@ -6,13 +6,19 @@ class RoadCoordinator:
     # set height and color of the road in image 
     # minRoadHeight = number of pixel up from the bottom of the image
     # maxRoadHeight = number of pixel down from the top of the image
+    # mask colors = colors of the roadLines
+    # new color = color of the segmentation
+    # hadRoadLines = if you have roadlines set this to True
     # colorformat = [255,255,255]
-    def __init__(self, minRoadHeight, maxRoadHeight, lowRoadColor, highRoadColor):
+    def __init__(self, minRoadHeight, maxRoadHeight, lowRoadColor, highRoadColor, lowMaskColor, highMaskColor, newColor, hasRoadLines ):
         self.minRoadHeight = minRoadHeight
         self.maxRoadHeight = maxRoadHeight
         self.lowRoadColor = lowRoadColor
         self.highRoadColor = highRoadColor
-
+        self.lowMaskColor = lowMaskColor
+        self.highMaskColor = highMaskColor
+        self.newColor = newColor
+        self.hasRoadLines = hasRoadLines
     # image should opencv2 image
     # returns (leftborderline, rightborderline, middleRoadline)
     # line consists of 2 coordinates for top and bottom
@@ -31,14 +37,16 @@ class RoadCoordinator:
         blur0=cv2.medianBlur(blur,5)
         blur1= cv2.GaussianBlur(blur0,(5,5),0)
         blur2= cv2.bilateralFilter(blur1,9,75,75)
-        maskRed = cv2.inRange(blur2, np.array([0, 0, 0]), np.array([155, 55, 255]))
-        image[maskRed>0]=(255,72,0)
+        if(self.hasRoadLines):
+            colorMask = cv2.inRange(blur2, np.array(self.lowMaskColor), np.array(self.highMaskColor))
+            image[colorMask>0] = self.newColor
         hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
         lowRoadColor = np.array(self.lowRoadColor)
         highRoadColor = np.array(self.highRoadColor)
         mask = cv2.inRange(hsv, lowRoadColor, highRoadColor)
-        threshold = cv2.threshold(mask, 145, 255, cv2.THRESH_BINARY_INV)[1]
-        return threshold
+        if(self.hasRoadLines):
+            mask = cv2.threshold(mask, 145, 255, cv2.THRESH_BINARY_INV)[1]
+        return mask
 
     # 1 calculates and sort contours by size
     # 2 calculates road border lines

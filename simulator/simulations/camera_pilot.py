@@ -35,8 +35,6 @@ import cv2
 
 class CameraPilot:
     def __init__ (self):
-        print ('Use up arrow to start, down arrow to stop')
-        
         self.driveEnabled = False
         sp.world.physics.proportional.set(0.40)
         sp.world.physics.intergral.set(20)
@@ -45,8 +43,10 @@ class CameraPilot:
         self.driveEnabled = True
         self.targetVelocity = 0.7
         self.steeringAngle = 0
-        coordinator = rd.RoadCoordinator(200,0,[100,150,0],[140,255,255])
+        coordinator = rd.RoadCoordinator(200,0,[100,150,0], [140,255,255], [0,0,0], [155, 55, 255], (255,72,0), True)
         cap = cv2.VideoCapture('test.mp4')
+
+
 
         while(cap.isOpened()):
             ret, frame = cap.read()
