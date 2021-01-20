@@ -49,4 +49,4 @@ Tips:
 - If you want to change the objects visualisation or the dimensions of the tracks, you can do so in the visualisation.py
 - You can also add your own simulation in the startSimulator.py by creating a new python module and adding the module as an answer to the answersList
 
-
+![Alt text](./architecture.png "Architecture visualisation")
