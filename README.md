@@ -1,8 +1,15 @@
 # Phidippides
+With the Quadriga, Team Phidippides wants to bring a practical electric city vehicle focused on innovation in future mobility.
+The Quadriga will completely be designed by students of the Rotterdam University of Applied Sciences.
+To achieve autonomous driving the Quadriga will use a LiDAR and Stereo Camera to scan the environment and drive on its own.
 
+This repository includes every resource we gathered so far in therms of the autonomous driving of the Quadriga.
+
+![quadriga.jpg](assets/quadriga.jpg)
 
 ## Installation
 - Clone this repository.
+- Follow the instructions given.
 
 ## Xavier
 At this moment in time all installation is already done on the Xavier.
