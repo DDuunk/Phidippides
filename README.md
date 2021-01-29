@@ -38,10 +38,10 @@ The installation is done through a GUI.
 
 First download the SDK manager: https://developer.nvidia.com/embedded/jetpack
 
-Install it with the following command:
-`cd /home/Xavier/Downloads` 
-`sudo apt install ./sdkmanager_[VERSION]_amd.deb`(type the version you downloaded at [version])
-Run the manager with:
+Install it with the following command:  
+`cd /home/Xavier/Downloads`  
+`sudo apt install ./sdkmanager_[VERSION]_amd.deb`(type the version you downloaded at [version])  
+Run the manager with:  
 `sdkmanager`
 
 - Step 1: Select as target hardware the Jetson AGX Xavier.
