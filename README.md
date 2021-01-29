@@ -20,7 +20,7 @@ At this moment in time all installation is already done on the Xavier.
 - ROS directory: `/home/xavier/ros`
 
 ### Installation
-_This is only necessary when a clean install is mendatory_ 
+_This is only necessary when a clean install is mandatory_ 
 #### Requirements
 - [NVIDIA Jetson AGX Xavier Developer Kit](https://developer.nvidia.com/embedded/jetson-agx-xavier-developer-kit%20%20%20)
 - [Zed Camera](https://www.stereolabs.com/)
