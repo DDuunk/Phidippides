@@ -52,16 +52,27 @@ Run the manager with:
 `sdkmanager`
 
 - Step 1: Select as target hardware the Jetson AGX Xavier.
+  <br></br>
   ![gui-step1.png](assets/gui-step1.png)
+  <br></br>
 - Step 2: Check all the boxes for installation.  
+  <br></br>
   ![gui-step2.png](assets/gui-step2.png)
+  <br></br>
 - Step 3: Choose automatic or manual setup. For manual setup a display, keyboard and mouse need to be connected.
-  ![gui-step3.png](assets/gui-step3.png)  
+  <br></br>
+  ![gui-step3.png](assets/gui-step3.png)
+  <br></br>
   ![gui-step4.png](assets/gui-step4.png)
+  <br></br>
 - Step 4: A window will appear asking for the Jetson's username/password in order to install components.
+  <br></br>
   ![gui-step5.png](assets/gui-step5.png)
+  <br></br>
 - Step 5: Finish and exit.  
+  <br></br>
   ![gui-step6.png](assets/gui-step6.png)
+  <br></br>
 
 After this it's possible to attach a screen, keyboard and mouse to the Xavier.
 
